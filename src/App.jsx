@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { 
   MapPin, Calendar, Clock, X, Share2, Music, Coffee, Camera, Utensils, 
   ArrowRight, ChevronDown, ChevronUp, Users, Image as ImageIcon, Youtube, 
-  DollarSign, Star, Map as MapIcon
+  DollarSign, Star, Map as MapIcon, Leaf, CloudFog, Mountain, Tent, 
+  CheckSquare, Info, Sunset, Sunrise
 } from 'lucide-react';
 
 // --- 資料區：未來行程 (下一站，去哪裡) ---
@@ -21,17 +22,17 @@ const futureTrips = [
         day: 1,
         title: "抵達與先斗町晚餐",
         activities: [
-          { time: "14:00", icon: <MapPin size={16}/>, text: "抵達關西機場，搭乘 Haruka 直奔京都" },
-          { time: "16:30", icon: <Coffee size={16}/>, text: "飯店 Check-in (三條附近)" },
-          { time: "18:30", icon: <Utensils size={16}/>, text: "晚餐：先斗町 壽喜燒老店" }
+          { time: "14:00", icon: <MapPin size={16}/>, title: "抵達關西機場", description: "搭乘 Haruka 直奔京都，感受古都的第一口空氣。" },
+          { time: "16:30", icon: <Coffee size={16}/>, title: "飯店 Check-in", description: "入住三條附近的設計旅店，放下行李輕鬆一下。" },
+          { time: "18:30", icon: <Utensils size={16}/>, title: "晚餐：先斗町", description: "探訪巷弄裡的壽喜燒老店，享受道地關西風味。" }
         ]
       },
       {
         day: 2,
         title: "蹴上鐵道與哲學之道",
         activities: [
-          { time: "09:00", icon: <Camera size={16}/>, text: "蹴上傾斜鐵道拍晨間櫻花" },
-          { time: "14:30", icon: <MapPin size={16}/>, text: "散步哲學之道，參觀銀閣寺" }
+          { time: "09:00", icon: <Camera size={16}/>, title: "蹴上傾斜鐵道", description: "趁著人潮還沒湧現，捕捉鐵道與櫻花交織的絕美畫面。" },
+          { time: "14:30", icon: <MapPin size={16}/>, title: "哲學之道散策", description: "沿著小徑散步至銀閣寺，沿途是滿開的櫻花隧道。" }
         ]
       }
     ]
@@ -50,7 +51,7 @@ const futureTrips = [
         day: 1,
         title: "飛往蘇黎世",
         activities: [
-          { time: "23:00", icon: <MapPin size={16}/>, text: "搭乘班機前往蘇黎世" }
+          { time: "23:00", icon: <MapPin size={16}/>, title: "搭機啟程", description: "帶著期待的心情，搭乘班機前往蘇黎世。" }
         ]
       }
     ]
@@ -60,6 +61,162 @@ const futureTrips = [
 // --- 資料區：過去行程 (曾走過的地方) ---
 const pastTrips = [
   {
+    id: 'p3', 
+    title: "🏔️ 嘉義梅山太平 · 車宿＋登山三日遊",
+    date: "2025.12.17 - 2025.12.19",
+    location: "嘉義・梅山太平",
+    // 修正 1：背景圖片改用您提供的 Google 相簿連結
+    // 注意：Google 相簿分享連結 (photos.app.goo.gl) 有時無法直接顯示為圖片，若顯示失敗建議使用直接圖片網址 (.jpg)
+    coverImage: "https://lh3.googleusercontent.com/pw/AP1GczNurQzdqNgImUwfVmvnT07s2fPqglBGPPPsr_p-RruUAvPp_SUSobh9xYksA02VOd7lKTWvhaPzkkextxn6YIcO8nzI5Rc_39yrAZrfQ5LRsGxUkvnDl2l8jZIxjFHQPHvvsVSlekrSeC0E_X6XAg1lUQ=w3209-h1805-s-no-gm?authuser=1", 
+    description: "三天兩夜輕量車宿行程，以太平老街為基地，串起杉林溪谷、茶園吊橋、太平五連峰縱走與大巃頂、奉天岩晨走，一路用泡麵、茶具與夜景填滿旅行細節。",
+    tags: ["車宿", "登山", "五連峰", "茶園"],
+    companions: "邱家、凌家、曾家、羅家共8人",
+    albumUrl: "https://photos.app.goo.gl/r6VEVFTvFZPT3TzY7", 
+    videoUrl: "",
+    rating: 5,
+    budget: "據點：57 秘密基地",
+    checklists: [
+      {
+        category: "邱家準備",
+        items: ["電鍋 1 台", "炒鍋 1 個", "煎鍋 1 個"]
+      },
+      {
+        category: "羅家準備",
+        items: ["泡茶用具（壺、杯、濾網等）", "RO 水（煮泡麵＋泡茶共用）", "瓦斯爐／高山爐具與燃料"]
+      },
+      {
+        category: "各家自備",
+        items: ["個人餐具、茶杯", "少量茶點與水果", "個人保暖、雨具與頭燈", "個人藥品與登山小物"]
+      }
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "暖身與車宿開張",
+        note: "Day 1 以熟悉環境與車宿動線為主，體力保留給隔天五連峰。",
+        activities: [
+          { 
+            time: "08:00", 
+            icon: <MapPin size={16}/>, 
+            title: "高雄出發 → 往梅山", 
+            description: "預估車程約 2 小時 10 分，高速公路途中可視情況休息一次。" 
+          },
+          { 
+            time: "10:30", 
+            icon: <Tent size={16}/>, 
+            title: "抵達 57 秘密基地", 
+            description: "停好車、調整車內睡眠空間，確認電源、照明與煮食動線，順手整理登山裝備。" 
+          },
+          { 
+            time: "11:00", 
+            icon: <Leaf size={16}/>, 
+            title: "仙人堀杉林步道", 
+            description: "約 1 km、30–40 分鐘，杉林＋溪谷路線，當作旅程第一段輕鬆拉筋。",
+            image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=600&auto=format&fit=crop" 
+          },
+          { 
+            time: "12:00", 
+            icon: <Utensils size={16}/>, 
+            title: "太平老街簡單午餐", 
+            description: "隨意選擇小吃、便當或超商補給，順便感受老街氣氛。" 
+          },
+          { 
+            time: "14:00", 
+            icon: <CloudFog size={16}/>, 
+            title: "雲之南道步道＋太平雲梯", 
+            description: "約 2 km，預留 1–2 小時，茶園景觀＋吊橋視野，輕鬆散步、攝影取景皆可。",
+            // 修正 2：補上雲之南道/茶園意象圖
+            image: "https://pic.pimg.tw/vickytung12/1677136726-2056372517-g.jpg" 
+          },
+          { 
+            time: "晚餐", 
+            icon: <Utensils size={16}/>, 
+            title: "車宿首夜 · 自煮晚餐", 
+            description: "菜單：地瓜白飯、菇菇補湯、炒高麗菜、煎素魚、豆瓣豆腐、烤玉米、荷包蛋。" 
+          },
+          { 
+            time: "夜晚", 
+            icon: <Sunset size={16}/>, 
+            title: "泡茶 · 聊天 · 太平夜景", 
+            description: "在基地周邊散步，找一個安全安靜的點看夜景，熟悉車宿睡眠節奏。" 
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: "太平五連峰 O 型縱走",
+        note: "此天為行程主攻日，務必留意補水與步調，遇到濕滑路段放慢速度。",
+        activities: [
+          { 
+            time: "06:30", 
+            icon: <Coffee size={16}/>, 
+            title: "基地早餐 · 整理裝備", 
+            description: "檢查：登山杖、雨衣、水、乾糧、泡麵。羅家帶高山爐＋輕量鍋具煮熱水。" 
+          },
+          { 
+            time: "07:50", 
+            icon: <Mountain size={16}/>, 
+            title: "起登：五連峰 O 型", 
+            description: "路線：三元宮 → 太平山 → 梨子腳山 → 馬鞍山 → 二尖山 → 大尖山 → 三元宮。全程約 10.5 km。",
+            // 修正 3：補上登山步道意象圖
+            image: "https://lh3.googleusercontent.com/pw/AP1GczO6hnRqG_nJxzoBeJIsHNTJeLvbN4JGxa8dciLdJX3cwBEqUu4Cn3ay6rZiT_E_vWdNQQS2khc81txPFJEoFuMwCvFMp3HL7wxFvNSzXnOh7W1Si-KWkKBLdKxFM1rmoy28p0_30tEVhJF2rOehlUsS0w=w3209-h1805-s-no-gm?authuser=1"
+          },
+          { 
+            time: "午餐", 
+            icon: <Utensils size={16}/>, 
+            title: "山上煮泡麵 · 熱飲", 
+            description: "視地形挑選視野好且安全的平台或涼亭，大家一起分工煮麵、泡茶。" 
+          },
+          { 
+            time: "16:30", 
+            icon: <Leaf size={16}/>, 
+            title: "晚餐：空氣圖書館", 
+            description: "營造下山後的儀式感晚餐，享受太平山城的黃昏氣氛 (已預訂)。",
+            image: "https://lh3.googleusercontent.com/pw/AP1GczOocFCtiST1JNh2HxyaZJgHInEz1ob9zq6hMqZcYs-lboYKIsQgljIkeuevCpNmM5gLdkDZwbzxCfsHwudBt5oiK9rtctzpStUxk1YcSiloDU2wewrVjUy6bamcxyMqO6IL2J1xsLYga4K7w5AijzGxgg=w3209-h1805-s-no-gm?authuser=1" 
+          },
+          { 
+            time: "夜晚", 
+            icon: <Star size={16}/>, 
+            title: "回基地 · 夜景收心", 
+            description: "行程第二夜，大家可以交換五連峰心得，預備隔天較輕鬆的行程。" 
+          }
+        ]
+      },
+      {
+        day: 3,
+        title: "晨走奉天岩與賦歸",
+        note: "Day 3 屬收心行程，腳感還在但節奏放慢，適合邊走邊聊。",
+        activities: [
+          { 
+            time: "08:00", 
+            icon: <MapIcon size={16}/>, 
+            title: "晨走：孝子路步道 → 奉天岩", 
+            description: "路線：孝子路步道口 → 孝思亭 → 大巃頂 → 奉天岩 → 原路返回。約 5.5 km。" 
+          },
+          { 
+            time: "途中", 
+            icon: <Coffee size={16}/>, 
+            title: "奉天岩喝茶 · 小憩", 
+            description: "在奉天岩找一處合適位置泡茶，當作這次太平行程的收尾儀式。",
+            image: "https://lh3.googleusercontent.com/pw/AP1GczPshpteBljGbSbeafsPCqrN5idIkJK3SEDWsK50Huz5HpgMsaLPBNs6t6uFQLVDabsJO_GOZMhNqlhvSe1dBNOUA9l_rOyPr4H7UhVX6plzCghP2YE8x78E6Y48kP5sWT7hbG-9lPpyxDzt7gLrIrEVcA=w3209-h1805-s-no-gm?authuser=1" 
+          },
+          { 
+            time: "12:00", 
+            icon: <Utensils size={16}/>, 
+            title: "太平老街午餐", 
+            description: "找一間順眼的小店，輕鬆吃完午餐、最後逛逛老街，再開車返回高雄。" 
+          },
+          { 
+            time: "14:00", 
+            icon: <MapPin size={16}/>, 
+            title: "收拾裝備，賦歸", 
+            description: "視大家狀態與交通情況，彈性安排中途休息站，結束這趟太平車宿小旅行。" 
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: 'p1',
     title: "🌊 2023 墾丁放空之旅",
     date: "2023.06.10 - 2023.06.12",
@@ -67,27 +224,27 @@ const pastTrips = [
     coverImage: "https://images.unsplash.com/photo-1596324952382-3d7729226e6d?q=80&w=800&auto=format&fit=crop",
     description: "那一年夏天，我們在海邊發呆、喝咖啡，晚上逛大街吃海鮮的回憶。",
     tags: ["回憶", "海邊", "自駕"],
-    companions: "小明、小華、大雄", // (1) 同行人員
-    albumUrl: "https://photos.google.com/", // (2) Google 相簿連結 (模擬)
-    videoUrl: "https://www.youtube.com/",   // (3) YouTube 影片連結 (模擬)
-    rating: 5, // 評分 (滿分5)
+    companions: "小明、小華、大雄", 
+    albumUrl: "https://photos.google.com/", 
+    videoUrl: "https://www.youtube.com/",   
+    rating: 5, 
     budget: "花費：TWD 8,500 / 人",
-    itinerary: [ // (4) 行程內容
+    itinerary: [ 
       {
         day: 1,
         title: "南下與海邊夕陽",
         activities: [
-          { time: "11:00", icon: <MapPin size={16}/>, text: "高雄出發，一路向南" },
-          { time: "15:00", icon: <Coffee size={16}/>, text: "海景咖啡廳看海發呆" },
-          { time: "18:00", icon: <Utensils size={16}/>, text: "墾丁大街覓食" }
+          { time: "11:00", icon: <MapPin size={16}/>, title: "高雄出發", description: "一路向南，心情跟著天氣變好。" },
+          { time: "15:00", icon: <Coffee size={16}/>, title: "海景咖啡廳", description: "隨意找間店，看海發呆整個下午。" },
+          { time: "18:00", icon: <Utensils size={16}/>, title: "墾丁大街", description: "覓食時間，必吃海鮮與路邊攤。" }
         ]
       },
       {
         day: 2,
         title: "水上活動",
         activities: [
-          { time: "10:00", icon: <Camera size={16}/>, text: "後壁湖浮潛體驗" },
-          { time: "16:00", icon: <MapPin size={16}/>, text: "龍磐公園看壯闊海岸" }
+          { time: "10:00", icon: <Camera size={16}/>, title: "後壁湖浮潛", description: "海水正藍，看見好多熱帶魚。" },
+          { time: "16:00", icon: <MapPin size={16}/>, title: "龍磐公園", description: "感受落山風與壯闊的太平洋海岸。" }
         ]
       }
     ]
@@ -102,7 +259,7 @@ const pastTrips = [
     tags: ["聖誕節", "購物", "城市"],
     companions: "家人們",
     albumUrl: "https://photos.google.com/",
-    videoUrl: "", // 沒有影片可留空
+    videoUrl: "", 
     rating: 4,
     budget: "花費：TWD 32,000 / 人",
     itinerary: [
@@ -110,7 +267,7 @@ const pastTrips = [
         day: 1,
         title: "抵達東京",
         activities: [
-          { time: "18:00", icon: <Utensils size={16}/>, text: "敘敘苑燒肉" }
+          { time: "18:00", icon: <Utensils size={16}/>, title: "敘敘苑燒肉", description: "用高空夜景與燒肉開啟這趟旅程。" }
         ]
       }
     ]
@@ -120,7 +277,7 @@ const pastTrips = [
 export default function App() {
   const [selectedTrip, setSelectedTrip] = useState(null);
   const [showToast, setShowToast] = useState(false);
-  const [isPastTripsOpen, setIsPastTripsOpen] = useState(true); // 控制「曾走過的地方」收摺狀態
+  const [isPastTripsOpen, setIsPastTripsOpen] = useState(true); 
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -139,6 +296,11 @@ export default function App() {
           src={trip.coverImage} 
           alt={trip.title} 
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          onError={(e) => {
+            // 自動 fallback 機制：如果 Google 相簿連結失效，自動替換成備用圖片
+            e.target.onerror = null; 
+            e.target.src = "https://images.unsplash.com/photo-1518182170546-0766ce6fec93?q=80&w=800&auto=format&fit=crop";
+          }}
         />
         <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-700 flex items-center gap-1">
           <Calendar size={12} />
@@ -289,6 +451,10 @@ export default function App() {
                   src={selectedTrip.coverImage} 
                   alt={selectedTrip.title} 
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.onerror = null; 
+                    e.target.src = "https://images.unsplash.com/photo-1518182170546-0766ce6fec93?q=80&w=800&auto=format&fit=crop";
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6">
                   <div className="flex justify-between items-end">
@@ -383,20 +549,36 @@ export default function App() {
                   <h3 className="text-lg font-bold text-slate-800 border-l-4 border-teal-500 pl-3 mb-6">
                     {selectedTrip.isPast ? "當時的足跡" : "預定行程"}
                   </h3>
-                  <div className="space-y-8">
+                  <div className="space-y-12">
                     {selectedTrip.itinerary?.map((day) => (
                       <div key={day.day} className="relative pl-8 border-l-2 border-slate-200 last:border-0 pb-2">
                         <div className={`absolute -left-[9px] top-0 text-white text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center ring-4 ring-white ${selectedTrip.isPast ? 'bg-slate-400' : 'bg-teal-500'}`}>
                           {day.day}
                         </div>
-                        <h4 className="font-bold text-slate-800 mb-4">Day {day.day} - {day.title}</h4>
-                        <div className="space-y-4">
+                        <div className="mb-6">
+                           <h4 className="font-bold text-xl text-slate-800">Day {day.day} - {day.title}</h4>
+                           {day.note && <p className="text-sm text-amber-600 mt-1 flex items-center gap-1"><Info size={14}/> {day.note}</p>}
+                        </div>
+                        
+                        <div className="space-y-6">
                           {day.activities.map((activity, idx) => (
-                            <div key={idx} className="flex gap-4 bg-slate-50 p-3 rounded-lg hover:bg-slate-100 transition-colors">
-                              <div className="text-slate-400 mt-1">{activity.icon}</div>
-                              <div>
-                                <span className={`text-xs font-bold block mb-0.5 ${selectedTrip.isPast ? 'text-slate-500' : 'text-teal-600'}`}>{activity.time}</span>
-                                <span className="text-slate-700 text-sm">{activity.text}</span>
+                            <div key={idx} className="group">
+                              <div className="flex gap-4">
+                                <div className="text-slate-400 mt-1 shrink-0">{activity.icon}</div>
+                                <div className="grow">
+                                  <div className="flex flex-wrap items-baseline gap-2 mb-1">
+                                    <span className={`text-xs font-bold ${selectedTrip.isPast ? 'text-slate-500' : 'text-teal-600'}`}>{activity.time}</span>
+                                    <h5 className="font-bold text-slate-700">{activity.title || activity.text}</h5>
+                                  </div>
+                                  <p className="text-slate-600 text-sm leading-relaxed">{activity.description || activity.text}</p>
+                                  
+                                  {/* 圖片插入區域 */}
+                                  {activity.image && (
+                                    <div className="mt-3 rounded-lg overflow-hidden h-48 shadow-sm">
+                                      <img src={activity.image} alt={activity.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           ))}
@@ -405,6 +587,30 @@ export default function App() {
                     ))}
                   </div>
                 </div>
+
+                {/* 檢查清單 (Checklist) 區域 - 僅當有 checklists 資料時顯示 */}
+                {selectedTrip.checklists && (
+                  <div className="mt-8 bg-slate-50 rounded-xl p-6 border border-slate-200">
+                    <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                      <CheckSquare size={20} className="text-teal-600"/> 共備與檢查清單
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {selectedTrip.checklists.map((list, idx) => (
+                        <div key={idx} className="bg-white p-4 rounded-lg shadow-sm">
+                          <h4 className="font-bold text-slate-700 mb-2 border-b border-slate-100 pb-2">{list.category}</h4>
+                          <ul className="space-y-2">
+                            {list.items.map((item, itemIdx) => (
+                              <li key={itemIdx} className="flex items-start gap-2 text-sm text-slate-600">
+                                <span className="text-teal-500 mt-0.5">▪</span>
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
               </div>
             </div>
