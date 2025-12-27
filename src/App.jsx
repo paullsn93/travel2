@@ -3,11 +3,178 @@ import {
   MapPin, Calendar, Clock, X, Share2, Music, Coffee, Camera, Utensils, 
   ArrowRight, ChevronDown, ChevronUp, Users, Image as ImageIcon, Youtube, 
   DollarSign, Star, Map as MapIcon, Leaf, CloudFog, Mountain, Tent, 
-  CheckSquare, Info, Sunset, Sunrise
+  CheckSquare, Info, Sunset, Sunrise, AlertTriangle, ExternalLink
 } from 'lucide-react';
 
 // --- 資料區：未來行程 (下一站，去哪裡) ---
 const futureTrips = [
+  {
+    id: 'f3',
+    title: "🏔️ 四天三夜山岳挑戰行程",
+    date: "2025.12 (日期未定)",
+    location: "苗栗・泰安",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop", // 壯闊山岳意象
+    description: "大板根、虎山、加里山精華路線規劃。這是一場挑戰體能與意志的縱走之旅，串聯了泰安溫泉與神仙谷的自然之美。",
+    tags: ["百岳挑戰", "中級山", "大板根", "虎山", "加里山"],
+    budget: "預算：TWD 6,000 / 人 (含車宿油資)",
+    itinerary: [
+      {
+        day: 1,
+        title: "啟程與車宿 (Day 1)",
+        note: "主題色：Sky Blue 🏠",
+        activities: [
+          { 
+            time: "13:30", 
+            icon: <MapPin size={16} className="text-sky-500"/>, 
+            title: "家中出發 → 苗栗泰安", 
+            description: "車程約 3 小時 (246 公里)，請注意行車安全。" 
+          },
+          { 
+            time: "16:30", 
+            icon: <Tent size={16} className="text-sky-500"/>, 
+            title: "抵達都瑪斯民宿", 
+            description: (
+              <div className="space-y-2">
+                <p>📍 抵達 <a href="https://www.google.com/maps/search/?api=1&query=都瑪斯民宿" target="_blank" className="text-sky-600 underline hover:text-sky-800 inline-flex items-center gap-1">都瑪斯民宿 <ExternalLink size={12}/></a></p>
+                <p className="text-slate-500 text-sm">⛺️ 車宿地點 (有雨棚區，需提前預訂)，檢查裝備，準備明日長程行程。</p>
+              </div>
+            )
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: "大板根挑戰 (Day 2)",
+        note: "主題色：Deep Yellow 🌲 (長距離挑戰)",
+        activities: [
+          { 
+            time: "06:00", 
+            icon: <Coffee size={16} className="text-yellow-600"/>, 
+            title: "起床、早餐", 
+            description: "整理長程裝備，準備迎接 20K 的挑戰。" 
+          },
+          { 
+            time: "07:50", 
+            icon: <Mountain size={16} className="text-yellow-600"/>, 
+            title: "雪見登山口起登 (23.7K)", 
+            description: (
+              <div className="space-y-3">
+                <p>預計來回：8 小時，20 公里，挑戰體能極限。</p>
+                <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-sm">
+                  <p className="font-bold mb-2">🗺️ 路線詳情：</p>
+                  <p>雪見遊客中心(23.7K) → 東洗水山登山口 → 北坑山登山口 → 集材場 → <span className="font-bold text-yellow-700">北坑山</span> → <span className="font-bold text-yellow-700">大板根</span> (折返)</p>
+                </div>
+                
+                <div className="flex flex-col gap-2 text-sm">
+                   <a href="https://hiking.biji.co/index.php?q=review&act=info&review_id=30654" target="_blank" className="text-yellow-700 hover:text-yellow-900 bg-yellow-50 px-2 py-1 rounded inline-flex items-center gap-2 w-fit">
+                     📄 雪見大板根順登北坑山 (山友心得)
+                   </a>
+                   <a href="https://hiking.biji.co/index.php?q=trail&act=gpx_detail&id=5235591" target="_blank" className="text-green-700 hover:text-green-900 bg-green-50 px-2 py-1 rounded inline-flex items-center gap-2 w-fit">
+                     🗺️ 雪見大板根 (GPX 路線檔)
+                   </a>
+                   <a href="https://www.youtube.com/results?search_query=%E9%9B%AA%E8%A6%8B+%E5%A4%A7%E6%9D%BF%E6%A0%B9+%E5%8C%97%E5%9D%91%E5%B1%B1" target="_blank" className="text-red-700 hover:text-red-900 bg-red-50 px-2 py-1 rounded inline-flex items-center gap-2 w-fit">
+                     🎬 相關影片介紹
+                   </a>
+                </div>
+
+                <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-3 rounded-md flex items-start gap-2 text-sm">
+                  <Info size={16} className="shrink-0 mt-0.5"/>
+                  <span><strong>重要提醒：</strong> 此為長距離徒步，務必攜帶足夠的行動糧和水，並注意體力分配。</span>
+                </div>
+              </div>
+            )
+          }
+        ]
+      },
+      {
+        day: 3,
+        title: "虎山步道 (Day 3)",
+        note: "主題色：Vibrant Red 🧗 (陡上危險)",
+        activities: [
+          { 
+            time: "07:00", 
+            icon: <MapIcon size={16} className="text-red-600"/>, 
+            title: "前往泰安溫泉風景區", 
+            description: "車程約 1 小時 13 分，前往下一車宿點附近。" 
+          },
+          { 
+            time: "08:30", 
+            icon: <Mountain size={16} className="text-red-600"/>, 
+            title: "虎山步道起登", 
+            description: (
+              <div className="space-y-3">
+                <p>來回：5 小時，9 公里。注意後半段有陡上。</p>
+                <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-sm">
+                  <p className="font-bold mb-2">🗺️ 路線詳情：</p>
+                  <p>停車場 → 水雲吊橋 → 溪谷叉路 (開始陡上) → 加里山叉路 → <span className="font-bold text-red-700">虎山</span> (折返)</p>
+                </div>
+
+                <div className="flex flex-col gap-2 text-sm">
+                   <a href="https://hiking.biji.co/index.php?q=trail&act=detail&id=471" target="_blank" className="text-blue-700 hover:text-blue-900 bg-blue-50 px-2 py-1 rounded inline-flex items-center gap-2 w-fit">
+                     📄 虎山步道詳細資訊
+                   </a>
+                   <a href="https://hiking.biji.co/index.php?q=trail&act=gpx_detail&id=5235258" target="_blank" className="text-green-700 hover:text-green-900 bg-green-50 px-2 py-1 rounded inline-flex items-center gap-2 w-fit">
+                     🗺️ 水雲吊橋至虎山 (GPX)
+                   </a>
+                </div>
+
+                <div className="bg-red-50 border border-red-200 text-red-800 p-3 rounded-md flex items-start gap-2 text-sm shadow-sm">
+                  <AlertTriangle size={16} className="shrink-0 mt-0.5"/>
+                  <span><strong>🚨 極重要提醒：陡上危險！</strong><br/>虎山步道後半段有拉繩攀爬路段，山徑碎石易滑，<strong>務必穿戴止滑鞋、手套，並使用登山杖。</strong></span>
+                </div>
+              </div>
+            )
+          },
+          { 
+            time: "16:00", 
+            icon: <Tent size={16} className="text-red-600"/>, 
+            title: "前往知泉露營區", 
+            description: <span>前往 <a href="https://www.google.com/maps/search/?api=1&query=知泉露營區" target="_blank" className="text-red-600 underline hover:text-red-800">知泉露營區</a>，最後一晚車宿點。</span>
+          }
+        ]
+      },
+      {
+        day: 4,
+        title: "加里山與賦歸 (Day 4)",
+        note: "主題色：Teal Green ⛰️ (P型縱走)",
+        activities: [
+          { 
+            time: "07:30", 
+            icon: <Mountain size={16} className="text-teal-600"/>, 
+            title: "加里山大坪登山口起登", 
+            description: (
+              <div className="space-y-3">
+                <p>來回：7 小時，9.95 公里。台灣小百岳 No.36。</p>
+                <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-sm">
+                  <p>路線：大坪登山口 → 舊鐵道 → 避難山屋 → <span className="font-bold text-teal-700">加里山</span> → 杜鵑嶺 → 鹿場登山口接駁段。</p>
+                </div>
+                
+                <div className="flex flex-col gap-2 text-sm">
+                   <a href="https://hiking.biji.co/index.php?q=trail&act=detail&id=249" target="_blank" className="text-blue-700 hover:text-blue-900 bg-blue-50 px-2 py-1 rounded inline-flex items-center gap-2 w-fit">
+                     📄 加里山大坪線 P 形縱走
+                   </a>
+                   <a href="https://hiking.biji.co/index.php?q=trail&act=gpx_detail&id=414478" target="_blank" className="text-green-700 hover:text-green-900 bg-green-50 px-2 py-1 rounded inline-flex items-center gap-2 w-fit">
+                     🗺️ 加里山-大坪林道 GPX
+                   </a>
+                </div>
+
+                <div className="bg-teal-50 border border-teal-200 text-teal-800 p-3 rounded-md flex items-start gap-2 text-sm">
+                  <CheckSquare size={16} className="shrink-0 mt-0.5"/>
+                  <span><strong>✅ 重要提醒：</strong> 登頂前有近垂直的攀升段，需使用拉繩，請務必戴手套並注意安全！</span>
+                </div>
+              </div>
+            )
+          },
+          { 
+            time: "15:00", 
+            icon: <MapPin size={16} className="text-teal-600"/>, 
+            title: "賦歸", 
+            description: "🏆 恭喜完成四天三座山岳挑戰！車程約 3 小時 13 分，平安回家。" 
+          }
+        ]
+      }
+    ]
+  },
   {
     id: 'f1',
     title: "🌸 京都慢活賞櫻五日遊",
@@ -570,7 +737,11 @@ export default function App() {
                                     <span className={`text-xs font-bold ${selectedTrip.isPast ? 'text-slate-500' : 'text-teal-600'}`}>{activity.time}</span>
                                     <h5 className="font-bold text-slate-700">{activity.title || activity.text}</h5>
                                   </div>
-                                  <p className="text-slate-600 text-sm leading-relaxed">{activity.description || activity.text}</p>
+                                  
+                                  {/* 描述區塊 - 支援 JSX 內容 */}
+                                  <div className="text-slate-600 text-sm leading-relaxed">
+                                    {activity.description || activity.text}
+                                  </div>
                                   
                                   {/* 圖片插入區域 */}
                                   {activity.image && (
