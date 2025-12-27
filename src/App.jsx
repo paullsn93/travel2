@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   MapPin, Calendar, Clock, X, Share2, Music, Coffee, Camera, Utensils, 
   ArrowRight, ChevronDown, ChevronUp, Users, Image as ImageIcon, Youtube, 
   DollarSign, Star, Map as MapIcon, Leaf, CloudFog, Mountain, Tent, 
-  CheckSquare, Info, Sunset, Sunrise, AlertTriangle, ExternalLink, Activity
+  CheckSquare, Info, Sunset, Sunrise, AlertTriangle, ExternalLink, Activity, Plane, Train,
+  Search, Tag
 } from 'lucide-react';
 
 // --- 資料區：未來行程 (下一站，去哪裡) ---
-// 已移除預設的「京都」和「瑞士」行程，僅保留您的「四天三夜山岳挑戰」
 const futureTrips = [
   {
     id: 'f3',
     title: "🏔️ 四天三夜山岳挑戰行程",
     date: "2025.12 (日期未定)",
     location: "苗栗・泰安",
-    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop", // 壯闊山岳意象
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop", 
     description: "大板根、虎山、加里山精華路線規劃。這是一場挑戰體能與意志的縱走之旅，串聯了泰安溫泉與神仙谷的自然之美。",
-    tags: ["百岳挑戰", "中級山", "大板根", "虎山", "加里山"],
+    // 更新標籤以配合新的熱門搜尋
+    tags: ["登山", "國內旅遊", "車宿", "百岳挑戰", "中級山"],
     budget: "預算：TWD 6,000 / 人 (含車宿油資)",
     itinerary: [
       {
@@ -179,8 +180,161 @@ const futureTrips = [
 ];
 
 // --- 資料區：過去行程 (曾走過的地方) ---
-// 已移除預設的「墾丁」和「東京」行程，僅保留您的「嘉義梅山太平」
 const pastTrips = [
+  {
+    id: 'p4', 
+    title: "🇯🇵 2023 日本深秋夫妻自助行",
+    date: "2023.11.05 - 2023.11.16",
+    location: "日本 (12天)",
+    coverImage: "https://images.unsplash.com/photo-1509024644558-2f56ce76c490?q=80&w=1200&auto=format&fit=crop", // 日本秋日鳥居意象
+    description: "這是一趟為期 12 天的深度自助旅行。穿梭在日本深秋的街頭巷尾，從繁華都市到靜謐古都，紀錄了我們夫妻倆的足跡與美食回憶。",
+    // 更新標籤以配合新的熱門搜尋
+    tags: ["國外旅遊", "自助", "夫妻", "秋季", "12天"],
+    companions: "夫妻二人",
+    albumUrl: "", 
+    videos: [],
+    rating: 5,
+    budget: "行程規劃：Notion 整理",
+    itinerary: [
+      {
+        day: 1,
+        title: "啟程：抵達東京 (11/05)",
+        activities: [
+          { time: "航班", icon: <Plane size={16}/>, title: "飛往東京", description: "帶著期待的心情出發！" },
+          { time: "移動", icon: <Train size={16}/>, title: "N'EX / Skyliner", description: "前往東京市區。" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "Check-in 東京飯店", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=東京上野飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>東京住宿點 (點此導航)</a></span> 
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: "東京市區探索 (11/06)",
+        activities: [
+          { time: "上午", icon: <MapPin size={16}/>, title: "淺草/晴空塔", description: "感受下町風情與現代地標。", image: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=600&auto=format&fit=crop" },
+          { time: "下午", icon: <Coffee size={16}/>, title: "銀座/澀谷", description: "逛街購物與下午茶。" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "返回飯店", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=東京上野飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>東京住宿點</a></span> 
+          }
+        ]
+      },
+      {
+        day: 3,
+        title: "近郊輕旅行 (11/07)",
+        activities: [
+          { time: "全日", icon: <MapPin size={16}/>, title: "鎌倉/江之島", description: "搭乘江之電，欣賞湘南海岸與大佛。", image: "https://images.unsplash.com/photo-1492571350019-22de08371fd3?q=80&w=600&auto=format&fit=crop" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "返回飯店", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=東京上野飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>東京住宿點</a></span> 
+          }
+        ]
+      },
+      {
+        day: 4,
+        title: "移動日：前往河口湖 (11/08)",
+        activities: [
+          { time: "上午", icon: <Train size={16}/>, title: "富士回遊", description: "搭乘特急前往河口湖，欣賞富士山。" },
+          { time: "下午", icon: <Camera size={16}/>, title: "天上山公園", description: "搭纜車眺望富士山全景。" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "Check-in 河口湖", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=河口湖飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>河口湖住宿點</a></span> 
+          }
+        ]
+      },
+      {
+        day: 5,
+        title: "富士山下漫步 (11/09)",
+        activities: [
+          { time: "全日", icon: <Leaf size={16}/>, title: "紅葉迴廊", description: "欣賞秋季限定的紅葉美景與湖畔散策。" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "續住/移動", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=河口湖飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>河口湖住宿點</a></span> 
+          }
+        ]
+      },
+      {
+        day: 6,
+        title: "大移動：前往京都 (11/10)",
+        activities: [
+          { time: "交通", icon: <Train size={16}/>, title: "新幹線移動", description: "搭乘新幹線前往古都京都。" },
+          { time: "晚餐", icon: <Utensils size={16}/>, title: "京都車站", description: "品嚐拉麵小路或京料理。" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "Check-in 京都", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=京都飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>京都住宿點</a></span> 
+          }
+        ]
+      },
+      {
+        day: 7,
+        title: "嵐山秋色 (11/11)",
+        activities: [
+          { time: "上午", icon: <Leaf size={16}/>, title: "嵐山小火車", description: "穿梭保津峽的紅葉隧道。" },
+          { time: "下午", icon: <MapPin size={16}/>, title: "竹林之道/天龍寺", description: "感受千年古剎的寧靜。" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "返回飯店", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=京都飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>京都住宿點</a></span> 
+          }
+        ]
+      },
+      {
+        day: 8,
+        title: "清水寺與祇園 (11/12)",
+        activities: [
+          { time: "上午", icon: <MapPin size={16}/>, title: "清水寺", description: "著名的清水舞台與二三年坂散步。" },
+          { time: "下午", icon: <Coffee size={16}/>, title: "祇園/花見小路", description: "尋找藝妓的蹤影，享受抹茶甜點。" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "返回飯店", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=京都飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>京都住宿點</a></span> 
+          }
+        ]
+      },
+      {
+        day: 9,
+        title: "移動：前往大阪 (11/13)",
+        activities: [
+          { time: "上午", icon: <MapPin size={16}/>, title: "伏見稻荷大社", description: "千本鳥居巡禮。" },
+          { time: "下午", icon: <Train size={16}/>, title: "前往大阪", description: "移動至充滿活力的商業之都。" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "Check-in 大阪", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=大阪難波飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>大阪住宿點</a></span> 
+          }
+        ]
+      },
+      {
+        day: 10,
+        title: "環球影城/市區 (11/14)",
+        activities: [
+          { time: "全日", icon: <Activity size={16}/>, title: "大阪行程", description: "環球影城狂歡或大阪城公園漫步。" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "返回飯店", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=大阪難波飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>大阪住宿點</a></span> 
+          }
+        ]
+      },
+      {
+        day: 11,
+        title: "購物與美食 (11/15)",
+        activities: [
+          { time: "全日", icon: <DollarSign size={16}/>, title: "心齋橋/道頓堀", description: "藥妝採購與固力果跑跑人合照。" },
+          { time: "晚餐", icon: <Utensils size={16}/>, title: "最後的晚餐", description: "享用大阪燒或串炸。" },
+          { 
+            time: "住宿", icon: <Tent size={16}/>, title: "最後一晚", 
+            description: <span>入住 <a href="https://www.google.com/maps/search/?api=1&query=大阪難波飯店" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-800 font-bold"><MapIcon size={14} className="inline mr-1"/>大阪住宿點</a></span> 
+          }
+        ]
+      },
+      {
+        day: 12,
+        title: "賦歸 (11/16)",
+        activities: [
+          { time: "交通", icon: <Train size={16}/>, title: "前往關西機場", description: "搭乘南海電鐵 Rapi:t。" },
+          { time: "航班", icon: <Plane size={16}/>, title: "飛往台灣", description: "搭機返台，滿載回憶。" }
+        ]
+      }
+    ]
+  },
   {
     id: 'p3', 
     title: "🏔️ 嘉義梅山太平 · 車宿＋登山三日遊",
@@ -188,7 +342,8 @@ const pastTrips = [
     location: "嘉義・梅山太平",
     coverImage: "https://lh3.googleusercontent.com/pw/AP1GczNurQzdqNgImUwfVmvnT07s2fPqglBGPPPsr_p-RruUAvPp_SUSobh9xYksA02VOd7lKTWvhaPzkkextxn6YIcO8nzI5Rc_39yrAZrfQ5LRsGxUkvnDl2l8jZIxjFHQPHvvsVSlekrSeC0E_X6XAg1lUQ=w3209-h1805-s-no-gm?authuser=1", 
     description: "三天兩夜輕量車宿行程，以太平老街為基地，串起杉林溪谷、茶園吊橋、太平五連峰縱走與大巃頂、奉天岩晨走，一路用泡麵、茶具與夜景填滿旅行細節。",
-    tags: ["車宿", "登山", "五連峰", "茶園"],
+    // 更新標籤以配合新的熱門搜尋
+    tags: ["國內旅遊", "車宿", "登山", "五連峰", "茶園"],
     companions: "邱家、凌家、曾家、羅家共8人",
     albumUrl: "https://photos.app.goo.gl/r6VEVFTvFZPT3TzY7", 
     videos: [
@@ -343,16 +498,47 @@ const pastTrips = [
   }
 ];
 
+// 定義固定的熱門標籤
+const POPULAR_TAGS = ["登山", "國內旅遊", "國外旅遊", "車宿", "自助", "團遊"];
+
 export default function App() {
   const [selectedTrip, setSelectedTrip] = useState(null);
   const [showToast, setShowToast] = useState(false);
-  const [isPastTripsOpen, setIsPastTripsOpen] = useState(true); 
+  const [isPastTripsOpen, setIsPastTripsOpen] = useState(true);
+  const [isFutureTripsOpen, setIsFutureTripsOpen] = useState(true); 
+  const [isSearchOpen, setIsSearchOpen] = useState(false); // 新增控制搜尋區塊收摺的狀態
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2000);
   };
+
+  // --- 搜尋與過濾邏輯 ---
+  // 1. 使用固定的 POPULAR_TAGS，不再動態計算
+  const allTags = POPULAR_TAGS;
+
+  // 2. 篩選行程
+  const filteredFutureTrips = useMemo(() => {
+    if (!searchTerm) return futureTrips;
+    const lowerTerm = searchTerm.toLowerCase();
+    return futureTrips.filter(trip => 
+      trip.title.toLowerCase().includes(lowerTerm) ||
+      trip.location.toLowerCase().includes(lowerTerm) ||
+      trip.tags.some(tag => tag.toLowerCase().includes(lowerTerm))
+    );
+  }, [searchTerm]);
+
+  const filteredPastTrips = useMemo(() => {
+    if (!searchTerm) return pastTrips;
+    const lowerTerm = searchTerm.toLowerCase();
+    return pastTrips.filter(trip => 
+      trip.title.toLowerCase().includes(lowerTerm) ||
+      trip.location.toLowerCase().includes(lowerTerm) ||
+      trip.tags.some(tag => tag.toLowerCase().includes(lowerTerm))
+    );
+  }, [searchTerm]);
 
   // 渲染卡片的共用元件
   const TripCard = ({ trip, isPast }) => (
@@ -366,7 +552,6 @@ export default function App() {
           alt={trip.title} 
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           onError={(e) => {
-            // 自動 fallback 機制：如果 Google 相簿連結失效，自動替換成備用圖片
             e.target.onerror = null; 
             e.target.src = "https://images.unsplash.com/photo-1518182170546-0766ce6fec93?q=80&w=800&auto=format&fit=crop";
           }}
@@ -450,19 +635,116 @@ export default function App() {
 
       <main className="max-w-6xl mx-auto px-4 py-12 relative z-10 space-y-16">
         
-        {/* --- 區塊一：下一站，去哪裡 (未來行程) --- */}
-        <section>
-          <div className="flex items-center gap-3 mb-8">
-            <div className="bg-teal-600 text-white p-2 rounded-lg">
-              <MapPin size={24} />
+        {/* --- 搜尋與篩選區塊 --- */}
+        <section className="bg-white rounded-2xl shadow-sm border border-slate-100 mb-6 overflow-hidden">
+          {!isSearchOpen ? (
+            <button 
+              onClick={() => setIsSearchOpen(true)}
+              className={`w-full py-4 flex items-center justify-center gap-2 transition-colors ${
+                searchTerm ? 'text-teal-600 bg-teal-50 font-bold' : 'text-slate-500 hover:text-teal-600 hover:bg-slate-50'
+              }`}
+            >
+              <Search size={20} />
+              <span>
+                {searchTerm ? `正在搜尋：「${searchTerm}」 (點擊展開)` : "搜尋旅程、地點或標籤..."}
+              </span>
+              {searchTerm && (
+                <span className="bg-teal-600 text-white text-xs px-2 py-0.5 rounded-full ml-2">
+                  {filteredFutureTrips.length + filteredPastTrips.length} 筆結果
+                </span>
+              )}
+            </button>
+          ) : (
+            <div className="p-6 relative animate-in fade-in slide-in-from-top-2 duration-300">
+               <div className="flex justify-between items-center mb-4">
+                 <h3 className="font-bold text-slate-700 flex items-center gap-2">
+                    <Search size={20} className="text-teal-600"/> 
+                    搜尋與篩選
+                 </h3>
+                 <button 
+                   onClick={() => setIsSearchOpen(false)}
+                   className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors"
+                 >
+                   <ChevronUp size={20} />
+                 </button>
+               </div>
+
+               <div className="flex flex-col md:flex-row gap-4 items-center">
+                <div className="relative w-full md:w-96">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                  <input 
+                    type="text" 
+                    placeholder="搜尋旅程、地點或標籤..." 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                  />
+                  {searchTerm && (
+                    <button 
+                      onClick={() => setSearchTerm("")}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                    >
+                      <X size={16} />
+                    </button>
+                  )}
+                </div>
+                
+                <div className="flex flex-wrap gap-2 items-center flex-1 justify-center md:justify-start">
+                  <span className="text-sm text-slate-400 flex items-center gap-1"><Tag size={14}/> 熱門標籤：</span>
+                  {allTags.map(tag => (
+                    <button
+                      key={tag}
+                      onClick={() => setSearchTerm(searchTerm === tag ? "" : tag)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                        searchTerm === tag 
+                          ? 'bg-teal-600 text-white' 
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      #{tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
-            <h2 className="text-2xl font-bold text-slate-800">下一站，去哪裡？</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {futureTrips.map((trip) => (
+          )}
+        </section>
+
+        {/* --- 區塊一：下一站，去哪裡 (未來行程 - 可收摺) --- */}
+        <section>
+          {/* 標題改為按鈕 */}
+          <button 
+            onClick={() => setIsFutureTripsOpen(!isFutureTripsOpen)}
+            className="w-full flex items-center justify-between mb-4 group focus:outline-none"
+          >
+            <div className="flex items-center gap-3">
+              <div className="bg-teal-600 text-white p-2 rounded-lg group-hover:scale-105 transition-transform">
+                <MapPin size={24} />
+              </div>
+              <h2 className="text-2xl font-bold text-slate-800 group-hover:text-teal-700 transition-colors">下一站，去哪裡？</h2>
+              <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full text-xs font-bold">{filteredFutureTrips.length}</span>
+            </div>
+            <div className="text-slate-400 group-hover:text-teal-600 transition-colors">
+              {isFutureTripsOpen ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
+            </div>
+          </button>
+
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 ease-in-out overflow-hidden ${isFutureTripsOpen ? 'opacity-100 mt-4 max-h-[2000px]' : 'opacity-0 max-h-0'}`}>
+            {filteredFutureTrips.map((trip) => (
               <TripCard key={trip.id} trip={trip} isPast={false} />
             ))}
+            {filteredFutureTrips.length === 0 && (
+              <div className="col-span-full text-center py-12 text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">
+                <p>沒有找到符合的未來行程...</p>
+              </div>
+            )}
           </div>
+
+          {!isFutureTripsOpen && filteredFutureTrips.length > 0 && (
+            <p className="text-center text-slate-400 text-sm mt-2 cursor-pointer hover:text-teal-600 transition-colors" onClick={() => setIsFutureTripsOpen(true)}>
+              點擊展開 {filteredFutureTrips.length} 個待辦行程...
+            </p>
+          )}
         </section>
 
         {/* --- 區塊二：曾走過的地方 (過去行程 - 可收摺) --- */}
@@ -476,6 +758,7 @@ export default function App() {
                 <Camera size={24} />
               </div>
               <h2 className="text-2xl font-bold text-slate-700 group-hover:text-slate-900">曾走過的地方</h2>
+              <span className="bg-white text-slate-600 px-2 py-0.5 rounded-full text-xs font-bold">{filteredPastTrips.length}</span>
             </div>
             <div className="text-slate-400 group-hover:text-teal-600 transition-colors">
               {isPastTripsOpen ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
@@ -483,14 +766,19 @@ export default function App() {
           </button>
           
           <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 ease-in-out overflow-hidden ${isPastTripsOpen ? 'opacity-100 mt-8 max-h-[2000px]' : 'opacity-0 max-h-0'}`}>
-            {pastTrips.map((trip) => (
+            {filteredPastTrips.map((trip) => (
               <TripCard key={trip.id} trip={trip} isPast={true} />
             ))}
+            {filteredPastTrips.length === 0 && (
+              <div className="col-span-full text-center py-12 text-slate-400">
+                <p>沒有找到符合的回憶...</p>
+              </div>
+            )}
           </div>
           
-          {!isPastTripsOpen && (
+          {!isPastTripsOpen && filteredPastTrips.length > 0 && (
             <p className="text-center text-slate-400 text-sm mt-2 cursor-pointer" onClick={() => setIsPastTripsOpen(true)}>
-              點擊展開 {pastTrips.length} 個精彩回憶...
+              點擊展開 {filteredPastTrips.length} 個精彩回憶...
             </p>
           )}
         </section>
