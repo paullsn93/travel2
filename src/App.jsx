@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 
 // --- 資料區：未來行程 (下一站，去哪裡) ---
+// 已移除預設的「京都」和「瑞士」行程，僅保留您的「四天三夜山岳挑戰」
 const futureTrips = [
   {
     id: 'f3',
@@ -174,58 +175,11 @@ const futureTrips = [
         ]
       }
     ]
-  },
-  {
-    id: 'f1',
-    title: "🌸 京都慢活賞櫻五日遊",
-    date: "2025.04.01 - 2025.04.05",
-    location: "日本・京都",
-    coverImage: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800&auto=format&fit=crop",
-    description: "避開人擠人的觀光客，走訪在地人的私房賞櫻景點，享受鴨川旁的野餐時光。",
-    tags: ["賞櫻", "古蹟", "美食"],
-    budget: "預算：TWD 45,000 / 人",
-    itinerary: [
-      {
-        day: 1,
-        title: "抵達與先斗町晚餐",
-        activities: [
-          { time: "14:00", icon: <MapPin size={16}/>, title: "抵達關西機場", description: "搭乘 Haruka 直奔京都，感受古都的第一口空氣。" },
-          { time: "16:30", icon: <Coffee size={16}/>, title: "飯店 Check-in", description: "入住三條附近的設計旅店，放下行李輕鬆一下。" },
-          { time: "18:30", icon: <Utensils size={16}/>, title: "晚餐：先斗町", description: "探訪巷弄裡的壽喜燒老店，享受道地關西風味。" }
-        ]
-      },
-      {
-        day: 2,
-        title: "蹴上鐵道與哲學之道",
-        activities: [
-          { time: "09:00", icon: <Camera size={16}/>, title: "蹴上傾斜鐵道", description: "趁著人潮還沒湧現，捕捉鐵道與櫻花交織的絕美畫面。" },
-          { time: "14:30", icon: <MapPin size={16}/>, title: "哲學之道散策", description: "沿著小徑散步至銀閣寺，沿途是滿開的櫻花隧道。" }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'f2',
-    title: "🏔️ 瑞士夢幻火車之旅",
-    date: "2025.09.15 - 2025.09.25",
-    location: "瑞士・策馬特",
-    coverImage: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?q=80&w=800&auto=format&fit=crop",
-    description: "搭乘冰河列車，親眼見證馬特洪峰的日出金山，一生必去一次。",
-    tags: ["登山", "風景", "火車"],
-    budget: "預算：TWD 120,000 / 人",
-    itinerary: [
-      {
-        day: 1,
-        title: "飛往蘇黎世",
-        activities: [
-          { time: "23:00", icon: <MapPin size={16}/>, title: "搭機啟程", description: "帶著期待的心情，搭乘班機前往蘇黎世。" }
-        ]
-      }
-    ]
   }
 ];
 
 // --- 資料區：過去行程 (曾走過的地方) ---
+// 已移除預設的「墾丁」和「東京」行程，僅保留您的「嘉義梅山太平」
 const pastTrips = [
   {
     id: 'p3', 
@@ -247,7 +201,6 @@ const pastTrips = [
     ],
     videoUrl: "", 
     rating: 5,
-    // 修改：budget 欄位加入 Google Maps 超連結
     budget: <span>據點：<a href="https://maps.app.goo.gl/9s31aNSjmMQvbWWi7" target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 underline">57 秘密基地</a></span>,
     checklists: [
       {
@@ -384,62 +337,6 @@ const pastTrips = [
             title: "收拾裝備，賦歸", 
             description: "視大家狀態與交通情況，彈性安排中途休息站，結束這趟太平車宿小旅行。" 
           }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'p1',
-    title: "🌊 2023 墾丁放空之旅",
-    date: "2023.06.10 - 2023.06.12",
-    location: "台灣・屏東",
-    coverImage: "https://images.unsplash.com/photo-1596324952382-3d7729226e6d?q=80&w=800&auto=format&fit=crop",
-    description: "那一年夏天，我們在海邊發呆、喝咖啡，晚上逛大街吃海鮮的回憶。",
-    tags: ["回憶", "海邊", "自駕"],
-    companions: "小明、小華、大雄", 
-    albumUrl: "https://photos.google.com/", 
-    videoUrl: "https://www.youtube.com/",   
-    rating: 5, 
-    budget: "花費：TWD 8,500 / 人",
-    itinerary: [ 
-      {
-        day: 1,
-        title: "南下與海邊夕陽",
-        activities: [
-          { time: "11:00", icon: <MapPin size={16}/>, title: "高雄出發", description: "一路向南，心情跟著天氣變好。" },
-          { time: "15:00", icon: <Coffee size={16}/>, title: "海景咖啡廳", description: "隨意找間店，看海發呆整個下午。" },
-          { time: "18:00", icon: <Utensils size={16}/>, title: "墾丁大街", description: "覓食時間，必吃海鮮與路邊攤。" }
-        ]
-      },
-      {
-        day: 2,
-        title: "水上活動",
-        activities: [
-          { time: "10:00", icon: <Camera size={16}/>, title: "後壁湖浮潛", description: "海水正藍，看見好多熱帶魚。" },
-          { time: "16:00", icon: <MapPin size={16}/>, title: "龍磐公園", description: "感受落山風與壯闊的太平洋海岸。" }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'p2',
-    title: "🗼 東京聖誕快閃",
-    date: "2022.12.20 - 2022.12.24",
-    location: "日本・東京",
-    coverImage: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=800&auto=format&fit=crop",
-    description: "第一次在國外過聖誕節，六本木的燈飾美得令人難忘。",
-    tags: ["聖誕節", "購物", "城市"],
-    companions: "家人們",
-    albumUrl: "https://photos.google.com/",
-    videoUrl: "", 
-    rating: 4,
-    budget: "花費：TWD 32,000 / 人",
-    itinerary: [
-      {
-        day: 1,
-        title: "抵達東京",
-        activities: [
-          { time: "18:00", icon: <Utensils size={16}/>, title: "敘敘苑燒肉", description: "用高空夜景與燒肉開啟這趟旅程。" }
         ]
       }
     ]
